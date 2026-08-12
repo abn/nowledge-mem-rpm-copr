@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.56
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -14,6 +14,8 @@ AutoReqProv:    no
 BuildRequires:  cpio
 BuildRequires:  rpm
 
+Provides:       nmem = %{version}-%{release}
+
 Requires:       nowledge-mem-desktop = %{version}-%{release}
 Requires:       nowledge-mem-server = %{version}-%{release}
 Requires:       nowledge-mem-cli = %{version}-%{release}
@@ -25,6 +27,7 @@ CLI tools (nowledge-mem-cli), and local backend server (nowledge-mem-server).
 %package cli
 Summary:        Nowledge Mem CLI and TUI tools
 AutoReqProv:    no
+Provides:       nmem-cli = %{version}-%{release}
 
 %description cli
 Command-line interface (nmem) and Terminal UI (nmem-tui) for Nowledge Mem.
@@ -32,6 +35,8 @@ Command-line interface (nmem) and Terminal UI (nmem-tui) for Nowledge Mem.
 %package desktop
 Summary:        Nowledge Mem Desktop GUI client
 AutoReqProv:    no
+Provides:       browse-now = %{version}-%{release}
+Provides:       nmem-desktop = %{version}-%{release}
 Requires:       nowledge-mem-cli = %{version}-%{release}
 %if 0%{?suse_version}
 Requires:       (libgtk-3-0 or gtk3)
@@ -58,6 +63,7 @@ Connects to a local or remote Nowledge Mem server.
 %package server
 Summary:        Nowledge Mem backend server daemon
 AutoReqProv:    no
+Provides:       nmem-server = %{version}-%{release}
 
 %description server
 Headless server daemon (nmem-server) for Nowledge Mem. Can be installed standalone
@@ -164,6 +170,3 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
-* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-3
-- Restructure subpackages: add nowledge-mem-cli, move browse-now to desktop, symlink nmem-server
-
