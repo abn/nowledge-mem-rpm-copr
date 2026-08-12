@@ -1,0 +1,16 @@
+# Tito temporary patch collection files
+.cover
+.mbx
+
+# Build outputs
+build/
+*.rpm
+*.src.rpm
+
+# Python virtual environment
+.venv/
+__pycache__/
+
+# Local downloaded sources
+nowledge-mem-*.rpm
+nowledge-mem-upstream.rpm
