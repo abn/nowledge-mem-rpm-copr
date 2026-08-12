@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.56
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -16,14 +16,23 @@ BuildRequires:  rpm
 
 Requires:       nowledge-mem-desktop = %{version}-%{release}
 Requires:       nowledge-mem-server = %{version}-%{release}
+Requires:       nowledge-mem-cli = %{version}-%{release}
 
 %description
-Meta-package for Nowledge Mem that installs both the desktop GUI client
-(nowledge-mem-desktop) and the local backend server (nowledge-mem-server).
+Meta-package for Nowledge Mem that installs the desktop GUI client (nowledge-mem-desktop),
+CLI tools (nowledge-mem-cli), and local backend server (nowledge-mem-server).
+
+%package cli
+Summary:        Nowledge Mem CLI and TUI tools
+AutoReqProv:    no
+
+%description cli
+Command-line interface (nmem) and Terminal UI (nmem-tui) for Nowledge Mem.
 
 %package desktop
 Summary:        Nowledge Mem Desktop GUI client
 AutoReqProv:    no
+Requires:       nowledge-mem-cli = %{version}-%{release}
 %if 0%{?suse_version}
 Requires:       (libgtk-3-0 or gtk3)
 Requires:       (libwebkit2gtk-4_1-0 or libwebkit2gtk-4_0-0 or webkit2gtk4.1)
@@ -43,18 +52,16 @@ Requires:       (libsoup3 or libsoup)
 Suggests:       nowledge-mem-server = %{version}-%{release}
 
 %description desktop
-Desktop GUI client for Nowledge Mem. Connects to a local or remote Nowledge Mem server
-for AI-powered memory and context management workflows. Supports Fedora, RHEL, CentOS Stream,
-Rocky Linux, and openSUSE (Leap / Tumbleweed).
+Desktop GUI client for Nowledge Mem and browser integration helper (browse-now).
+Connects to a local or remote Nowledge Mem server.
 
 %package server
-Summary:        Nowledge Mem backend server and CLI tools
+Summary:        Nowledge Mem backend server daemon
 AutoReqProv:    no
 
 %description server
-Headless server daemon (nmem-server), TUI interface (nmem-tui), and CLI tools
-(nmem, browse-now) for Nowledge Mem. Can be installed standalone on headless
-servers or remote hosts (Fedora, RHEL, CentOS Stream, Rocky Linux, openSUSE) without desktop GUI dependencies.
+Headless server daemon (nmem-server) for Nowledge Mem. Can be installed standalone
+on headless servers or remote hosts without desktop GUI dependencies.
 
 %prep
 %setup -q -c -T
@@ -93,17 +100,20 @@ cp -a usr/bin/* %{buildroot}/usr/bin/ 2>/dev/null || true
 cp -a "usr/lib/Nowledge Mem" %{buildroot}/usr/lib/
 cp -a usr/share/applications/* %{buildroot}/usr/share/applications/ 2>/dev/null || true
 cp -a usr/share/icons/* %{buildroot}/usr/share/icons/ 2>/dev/null || true
-if [ -d usr/share/nowledge-mem ]; then
-    cp -a usr/share/nowledge-mem %{buildroot}/usr/share/ 2>/dev/null || true
-fi
 
-# Symlink CLI binaries into /usr/bin if present in rust-backend
+# Symlink binaries into /usr/bin
 if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/nmem" ]; then
     ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem" %{buildroot}/usr/bin/nmem
 fi
 if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/browse-now" ]; then
     ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/browse-now" %{buildroot}/usr/bin/browse-now
 fi
+if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server" ]; then
+    ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server" %{buildroot}/usr/bin/nmem-server
+fi
+
+# Remove redundant /usr/share/nowledge-mem script folder if present
+rm -rf %{buildroot}/usr/share/nowledge-mem
 
 %post desktop
 if command -v gtk-update-icon-cache >/dev/null 2>&1; then
@@ -124,18 +134,33 @@ fi
 %files
 # Metapackage contains no files directly
 
+%files cli
+/usr/bin/nmem
+%dir "/usr/lib/Nowledge Mem"
+%dir "/usr/lib/Nowledge Mem/_up_"
+%dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/nmem"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-tui"
+
 %files desktop
 /usr/bin/nowledge-mem
+/usr/bin/browse-now
+%dir "/usr/lib/Nowledge Mem"
+%dir "/usr/lib/Nowledge Mem/_up_"
+%dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/browse-now"
 "/usr/share/applications/Nowledge Mem.desktop"
 /usr/share/icons/hicolor/*/*/*
 
 %files server
-/usr/bin/nmem
-/usr/bin/browse-now
-"/usr/lib/Nowledge Mem"
-%{_datadir}/nowledge-mem
+/usr/bin/nmem-server
+%dir "/usr/lib/Nowledge Mem"
+%dir "/usr/lib/Nowledge Mem/_up_"
+%dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/libpdfium.so"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/cloudflared"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/web-dist"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
-* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-2
-- Change Recommends to Suggests for server subpackage
-
