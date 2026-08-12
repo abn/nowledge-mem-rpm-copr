@@ -136,3 +136,6 @@ fi
 %{_datadir}/nowledge-mem
 
 %changelog
+* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-1
+- Initial release of Nowledge Mem 0.10.56
+
