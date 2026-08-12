@@ -164,3 +164,6 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-3
+- Restructure subpackages: add nowledge-mem-cli, move browse-now to desktop, symlink nmem-server
+
