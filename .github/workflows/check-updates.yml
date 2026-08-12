@@ -1,9 +1,9 @@
-name: Daily Update Check & Tito Release
+name: Automated Update Check & Tito Release
 
 on:
   schedule:
-    # Run daily at 02:00 UTC
-    - cron: '0 2 * * *'
+    # Run every 4 hours
+    - cron: '0 */4 * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -22,13 +22,6 @@ jobs:
       image: fedora:latest
       options: --user root
     steps:
-      - name: Install dependencies & configure Git
-        run: |
-          dnf install -y git tito
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global --add safe.directory "*"
-
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
@@ -38,6 +31,19 @@ jobs:
       - name: Check for Upstream Updates
         id: check_update
         run: |
+          python3 update_version.py --check-only
+
+      - name: Install dependencies & configure Git
+        if: steps.check_update.outputs.is_new == 'true' || inputs.force == true
+        run: |
+          dnf install -y git tito
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory "*"
+
+      - name: Download Upstream & Update Spec
+        if: steps.check_update.outputs.is_new == 'true' || inputs.force == true
+        run: |
           if [ "${{ inputs.force }}" = "true" ]; then
             python3 update_version.py --force
           else
@@ -45,6 +51,7 @@ jobs:
           fi
 
       - name: Commit Spec & Tag Release with Tito
+        if: steps.check_update.outputs.is_new == 'true' || inputs.force == true
         id: tito_release
         run: |
           if [ -n "$(git status --porcelain nowledge-mem.spec)" ]; then
@@ -54,7 +61,7 @@ jobs:
             git add nowledge-mem.spec
             git commit -m "chore: bump version to ${NEW_VERSION}"
             
-            tito tag --use-version "${NEW_VERSION}" --use-release '1%{?dist}' --accept-auto-changelog
+            tito tag --use-version "${NEW_VERSION}" --accept-auto-changelog
             
             echo "CHANGED=true" >> $GITHUB_OUTPUT
             echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_OUTPUT

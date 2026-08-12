@@ -61,7 +61,7 @@ tag-release: download-upstream ## Tag a new version release using Tito
 		VERSION=$$(python3 -c "import re; print(re.search(r'^Version:\s*([^\s]+)', open('nowledge-mem.spec').read(), re.MULTILINE).group(1))"); \
 		git add nowledge-mem.spec; \
 		git commit -m "chore: bump version to $$VERSION"; \
-		tito tag --use-version "$$VERSION" --use-release '1%{?dist}' --accept-auto-changelog; \
+		tito tag --use-version "$$VERSION" --accept-auto-changelog; \
 		echo "Tagged new version $$VERSION with Tito."; \
 	else \
 		echo "No spec file changes to tag."; \

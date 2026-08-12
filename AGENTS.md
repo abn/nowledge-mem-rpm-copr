@@ -15,7 +15,7 @@ Welcome! This repository packages **Nowledge Mem** into modular RPM packages (`n
    - [`dispatch_copr.py`](file:///dispatch_copr.py): Dispatches SRPM build to Fedora COPR (`abn/nowledge-mem`) using `copr-cli`.
 
 3. **Automation**:
-   - [`.github/workflows/check-updates.yml`](file:///.github/workflows/check-updates.yml): Daily cron workflow running in `fedora:latest` container to check, update spec, run `tito tag`, and push release tags.
+   - [`.github/workflows/check-updates.yml`](file:///.github/workflows/check-updates.yml): Cron workflow running every 4 hours in `fedora:latest` container to check, update spec, run `tito tag`, and push release tags.
 
 ## Standard Agent Workflows & Commands
 

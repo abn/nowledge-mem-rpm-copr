@@ -1,6 +1,41 @@
 # Nowledge Mem RPM & COPR Build Repository
 
-This repository packages **Nowledge Mem** into modular RPM packages using [Tito](https://github.com/rpm-software-management/tito) and dispatches builds to [Fedora COPR](https://copr.fedorainfracloud.org/).
+This repository packages **Nowledge Mem** into modular RPM packages using [Tito](https://github.com/rpm-software-management/tito) and dispatches builds to [Fedora COPR: abn/nowledge-mem](https://copr.fedorainfracloud.org/coprs/abn/nowledge-mem/).
+
+## Installation from Fedora COPR
+
+Pre-built RPM packages are available on Fedora COPR: [**`abn/nowledge-mem`**](https://copr.fedorainfracloud.org/coprs/abn/nowledge-mem/).
+
+### 1. Enable the COPR Repository
+
+On Fedora, RHEL, CentOS Stream, or Rocky Linux:
+```bash
+sudo dnf copr enable abn/nowledge-mem
+```
+
+### 2. Install Packages
+
+- **Full Package (GUI + CLI + Server)**:
+  ```bash
+  sudo dnf install nowledge-mem
+  # Or via shorthand alias
+  sudo dnf install nmem
+  ```
+
+- **CLI & Terminal UI Tools Only**:
+  ```bash
+  sudo dnf install nowledge-mem-cli
+  ```
+
+- **Headless Server Daemon Only**:
+  ```bash
+  sudo dnf install nowledge-mem-server
+  ```
+
+- **Desktop GUI Client Only**:
+  ```bash
+  sudo dnf install nowledge-mem-desktop
+  ```
 
 ## Package Architecture
 
@@ -54,9 +89,9 @@ The RPM spec file ([`nowledge-mem.spec`](file:///nowledge-mem.spec)) includes ma
 - **Enterprise Linux / RHEL / CentOS Stream / Rocky Linux**: EPEL 8, 9, 10
 - **openSUSE**: Leap 15.x & Tumbleweed
 
-## Automated Daily CI Updates & Tito Tagging
+## Automated CI Updates & Tito Tagging
 
-A GitHub Actions workflow ([`.github/workflows/check-updates.yml`](file:///.github/workflows/check-updates.yml)) runs inside the standard `fedora:latest` container on a daily schedule (`cron: '0 2 * * *'`) and via `workflow_dispatch`:
+A GitHub Actions workflow ([`.github/workflows/check-updates.yml`](file:///.github/workflows/check-updates.yml)) runs inside the standard `fedora:latest` container on a 4-hour schedule (`cron: '0 */4 * * *'`) and via `workflow_dispatch`:
 
 1. Runs in a standard `fedora:latest` container with `git` and `tito` installed via DNF.
 2. Queries `https://nowled.ge/download-mem-rpm` to resolve the latest online version.

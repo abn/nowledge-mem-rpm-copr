@@ -45,7 +45,7 @@ def get_current_spec_version():
     return match.group(1) if match else None
 
 
-def update_spec_version(new_version):
+def update_spec_version(new_version, is_new=True):
     content = SPEC_FILE_PATH.read_text()
     updated_content = re.sub(
         r"^(Version:\s*)[^\s]+",
@@ -53,15 +53,19 @@ def update_spec_version(new_version):
         content,
         flags=re.MULTILINE,
     )
-    # Reset release to 1 for new version
-    updated_content = re.sub(
-        r"^(Release:\s*)[^\s]+",
-        r"\g<1>1%{?dist}",
-        updated_content,
-        flags=re.MULTILINE,
-    )
-    SPEC_FILE_PATH.write_text(updated_content)
-    print(f"Updated {SPEC_FILE_PATH} Version to {new_version}")
+    if is_new:
+        # Reset release to 1 for new version
+        updated_content = re.sub(
+            r"^(Release:\s*)[^\s]+",
+            r"\g<1>1%{?dist}",
+            updated_content,
+            flags=re.MULTILINE,
+        )
+    if content != updated_content:
+        SPEC_FILE_PATH.write_text(updated_content)
+        print(f"Updated {SPEC_FILE_PATH} Version to {new_version}")
+    else:
+        print(f"No spec changes required for {SPEC_FILE_PATH}")
 
 
 def download_upstream_rpm(url, output_dir):
@@ -111,6 +115,13 @@ def main():
 
     is_new = current_version != latest_version
 
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a") as f:
+            f.write(f"is_new={'true' if is_new else 'false'}\n")
+            f.write(f"latest_version={latest_version}\n")
+            f.write(f"current_version={current_version}\n")
+
     if args.check_only:
         if is_new:
             print(f"New version available: {latest_version}")
@@ -123,9 +134,9 @@ def main():
         if is_new:
             print(f"Updating package from {current_version} to {latest_version}...")
         else:
-            print("Force re-fetching and updating package...")
+            print("Force re-fetching upstream package (version unchanged)...")
 
-        update_spec_version(latest_version)
+        update_spec_version(latest_version, is_new=is_new)
         download_upstream_rpm(download_url, args.build_dir)
         print("Version update complete.")
     else:
