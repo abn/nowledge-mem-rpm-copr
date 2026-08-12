@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.56
-Release:        1%{?dist}
+Release:        5%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -222,3 +222,6 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-5
+- Add systemd system and user unit files
+
