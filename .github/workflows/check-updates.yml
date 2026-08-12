@@ -19,18 +19,18 @@ jobs:
   check-and-tag:
     runs-on: ubuntu-latest
     container:
-      image: quay.io/abn/rpmbuilder:fedora-latest
+      image: fedora:latest
       options: --user root
     steps:
+      - name: Install git & tito via DNF
+        run: |
+          dnf install -y git tito
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install copr-cli via DNF
-        run: |
-          dnf install -y copr-cli python3-rich
 
       - name: Configure Git Identity & Safe Directory
         run: |

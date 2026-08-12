@@ -56,9 +56,9 @@ The RPM spec file ([`nowledge-mem.spec`](file:///nowledge-mem.spec)) includes ma
 
 ## Automated Daily CI Updates & Tito Tagging
 
-A GitHub Actions workflow ([`.github/workflows/check-updates.yml`](file:///.github/workflows/check-updates.yml)) runs inside the `quay.io/abn/rpmbuilder:fedora-latest` container on a daily schedule (`cron: '0 2 * * *'`) and via `workflow_dispatch`:
+A GitHub Actions workflow ([`.github/workflows/check-updates.yml`](file:///.github/workflows/check-updates.yml)) runs inside the standard `fedora:latest` container on a daily schedule (`cron: '0 2 * * *'`) and via `workflow_dispatch`:
 
-1. Runs directly in the native Fedora build container (`quay.io/abn/rpmbuilder:fedora-latest`) with `copr-cli` installed via DNF.
+1. Runs in a standard `fedora:latest` container with `git` and `tito` installed via DNF.
 2. Queries `https://nowled.ge/download-mem-rpm` to resolve the latest online version.
 3. If a new version is detected:
    - Updates `nowledge-mem.spec` with the new version.
