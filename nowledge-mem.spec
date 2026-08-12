@@ -222,6 +222,13 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Wed Aug 12 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.57 (github-actions[bot]@users.noreply.github.com)
+- ci: use fedora:latest container and install git and tito prior to checkout
+  (arun.neelicattu@gmail.com)
+- Update README with 4-subpackage layout, Provides aliases, systemd service
+  management, and distro support (arun.neelicattu@gmail.com)
+
 * Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-5
 - Add systemd system and user unit files
 
