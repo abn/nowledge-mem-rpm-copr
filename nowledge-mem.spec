@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.56
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -13,6 +13,7 @@ AutoReqProv:    no
 
 BuildRequires:  cpio
 BuildRequires:  rpm
+BuildRequires:  systemd-rpm-macros
 
 Provides:       nmem = %{version}-%{release}
 
@@ -64,10 +65,11 @@ Connects to a local or remote Nowledge Mem server.
 Summary:        Nowledge Mem backend server daemon
 AutoReqProv:    no
 Provides:       nmem-server = %{version}-%{release}
+%{?systemd_requires}
 
 %description server
-Headless server daemon (nmem-server) for Nowledge Mem. Can be installed standalone
-on headless servers or remote hosts without desktop GUI dependencies.
+Headless server daemon (nmem-server) for Nowledge Mem. Includes systemd system and user unit files.
+Can be installed standalone on headless servers or remote hosts without desktop GUI dependencies.
 
 %prep
 %setup -q -c -T
@@ -101,6 +103,8 @@ mkdir -p %{buildroot}/usr/bin
 mkdir -p %{buildroot}/usr/lib
 mkdir -p %{buildroot}/usr/share/applications
 mkdir -p %{buildroot}/usr/share/icons
+mkdir -p %{buildroot}%{_unitdir}
+mkdir -p %{buildroot}%{_userunitdir}
 
 cp -a usr/bin/* %{buildroot}/usr/bin/ 2>/dev/null || true
 cp -a "usr/lib/Nowledge Mem" %{buildroot}/usr/lib/
@@ -121,6 +125,41 @@ fi
 # Remove redundant /usr/share/nowledge-mem script folder if present
 rm -rf %{buildroot}/usr/share/nowledge-mem
 
+# Install systemd System Service Unit
+cat << 'EOF' > %{buildroot}%{_unitdir}/nowledge-mem.service
+[Unit]
+Description=Nowledge Mem Server Daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nmem-server
+Restart=always
+RestartSec=5
+EnvironmentFile=-/etc/default/nowledge-mem
+
+[Install]
+WantedBy=multi-user.target
+EOF
+ln -sf nowledge-mem.service %{buildroot}%{_unitdir}/nmem-server.service
+
+# Install systemd User Service Unit
+cat << 'EOF' > %{buildroot}%{_userunitdir}/nowledge-mem.service
+[Unit]
+Description=Nowledge Mem Server Daemon (User Service)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nmem-server
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+EOF
+ln -sf nowledge-mem.service %{buildroot}%{_userunitdir}/nmem-server.service
+
 %post desktop
 if command -v gtk-update-icon-cache >/dev/null 2>&1; then
     gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor 2>/dev/null || true
@@ -136,6 +175,15 @@ fi
 if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database -q 2>/dev/null || true
 fi
+
+%post server
+%systemd_post nowledge-mem.service
+
+%preun server
+%systemd_preun nowledge-mem.service
+
+%postun server
+%systemd_postun_with_restart nowledge-mem.service
 
 %files
 # Metapackage contains no files directly
@@ -160,6 +208,10 @@ fi
 
 %files server
 /usr/bin/nmem-server
+%{_unitdir}/nowledge-mem.service
+%{_unitdir}/nmem-server.service
+%{_userunitdir}/nowledge-mem.service
+%{_userunitdir}/nmem-server.service
 %dir "/usr/lib/Nowledge Mem"
 %dir "/usr/lib/Nowledge Mem/_up_"
 %dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
@@ -170,6 +222,3 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
-* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-4
-- Add Provides: browse-now and nmem alias Provides
-
