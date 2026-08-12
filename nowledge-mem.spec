@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.56
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -136,3 +136,6 @@ fi
 %{_datadir}/nowledge-mem
 
 %changelog
+* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-2
+- Change Recommends to Suggests for server subpackage
+
