@@ -79,10 +79,11 @@ make srpm
 ```
 
 ### 3. Containerized Test Build
-To test the build inside the `quay.io/abn/rpmbuilder:fedora-latest` container:
+To test the build inside the `quay.io/abn/rpmbuilder:fedora-latest` container (auto-detecting Podman or Docker CLI):
 ```bash
 make build-container
 ```
+
 
 ### 4. Tag a New Release with Tito
 ```bash

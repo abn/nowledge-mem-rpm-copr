@@ -1,12 +1,14 @@
 .DEFAULT_GOAL := help
 
 # Configuration variables
+CONTAINER_ENGINE ?= $(shell command -v podman 2>/dev/null || command -v docker 2>/dev/null || echo podman)
 COPR_REPO ?= abn/nowledge-mem
 RPMBUILDER_IMAGE ?= quay.io/abn/rpmbuilder:fedora-latest
 SPEC_FILE := nowledge-mem.spec
 VERSION_URL := https://nowled.ge/download-mem-rpm
 
 .PHONY: help setup resolve-version download-upstream srpm build-test build-container tag-release copr-build clean
+
 
 help: ## Display available Makefile targets
 	@echo "Nowledge Mem RPM Packaging & COPR Build Automation"
@@ -43,14 +45,16 @@ build-test: srpm ## Perform local test build using Tito
 	@echo "Running local Tito test build..."
 	@tito build --test --srpm --output=build/
 
-build-container: srpm ## Perform containerized RPM build using quay.io/abn/rpmbuilder:fedora-latest
-	@echo "Running containerized build using $(RPMBUILDER_IMAGE)..."
-	@podman run --rm \
+build-container: ## Perform containerized RPM build using quay.io/abn/rpmbuilder:fedora-latest
+	@echo "Running containerized build using $(RPMBUILDER_IMAGE) via $(CONTAINER_ENGINE)..."
+	@mkdir -p build
+	@$(CONTAINER_ENGINE) run --rm \
 		-v $(shell pwd):/sources:z \
 		-v $(shell pwd)/build:/output:z \
-		$(RPMBUILDER_IMAGE) \
-		tito build --test --srpm --output=build/
+		$(RPMBUILDER_IMAGE)
 	@echo "Containerized build finished successfully."
+
+
 
 tag-release: download-upstream ## Tag a new version release using Tito
 	@if [ -n "$$(git status --porcelain nowledge-mem.spec)" ]; then \
