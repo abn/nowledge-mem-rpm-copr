@@ -40,7 +40,7 @@ Requires:       (webkit2gtk4.1 or webkit2gtk4.0 or webkit2gtk3)
 Requires:       (libayatana-appindicator3 or libappindicator-gtk3)
 Requires:       (libsoup3 or libsoup)
 %endif
-Recommends:     nowledge-mem-server = %{version}-%{release}
+Suggests:       nowledge-mem-server = %{version}-%{release}
 
 %description desktop
 Desktop GUI client for Nowledge Mem. Connects to a local or remote Nowledge Mem server
@@ -136,6 +136,3 @@ fi
 %{_datadir}/nowledge-mem
 
 %changelog
-* Wed Aug 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.56-1
-- Initial release of Nowledge Mem 0.10.56
-
