@@ -223,6 +223,9 @@ fi
 
 %changelog
 * Thu Aug 13 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.62 (github-actions[bot]@users.noreply.github.com)
+
+* Thu Aug 13 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.61 (github-actions[bot]@users.noreply.github.com)
 - fix(ci): split workflow into check-update and release-tag jobs to resolve
   missing python3 in raw container (arun.neelicattu@gmail.com)
