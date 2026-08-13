@@ -16,33 +16,41 @@ permissions:
   contents: write
 
 jobs:
-  check-and-tag:
+  check-update:
+    runs-on: ubuntu-latest
+    outputs:
+      is_new: ${{ steps.check.outputs.is_new }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Check for Upstream Updates
+        id: check
+        run: |
+          python3 update_version.py --check-only
+
+  release-tag:
+    needs: check-update
+    if: needs.check-update.outputs.is_new == 'true' || inputs.force == true
     runs-on: ubuntu-latest
     container:
       image: fedora:latest
       options: --user root
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check for Upstream Updates
-        id: check_update
-        run: |
-          python3 update_version.py --check-only
-
       - name: Install dependencies & configure Git
-        if: steps.check_update.outputs.is_new == 'true' || inputs.force == true
         run: |
           dnf install -y git tito
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global --add safe.directory "*"
 
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Download Upstream & Update Spec
-        if: steps.check_update.outputs.is_new == 'true' || inputs.force == true
         run: |
           if [ "${{ inputs.force }}" = "true" ]; then
             python3 update_version.py --force
@@ -51,7 +59,6 @@ jobs:
           fi
 
       - name: Commit Spec & Tag Release with Tito
-        if: steps.check_update.outputs.is_new == 'true' || inputs.force == true
         id: tito_release
         run: |
           if [ -n "$(git status --porcelain nowledge-mem.spec)" ]; then
