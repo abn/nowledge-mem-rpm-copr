@@ -222,6 +222,13 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Thu Aug 13 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.61 (github-actions[bot]@users.noreply.github.com)
+- fix(ci): split workflow into check-update and release-tag jobs to resolve
+  missing python3 in raw container (arun.neelicattu@gmail.com)
+- ci: check version before dnf install, run every 4 hours, and add COPR
+  installation docs (arun.neelicattu@gmail.com)
+
 * Wed Aug 12 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.59 (github-actions[bot]@users.noreply.github.com)
 - docs: add AGENTS.md, manage-rpm-packaging skill, and auto-detect container
