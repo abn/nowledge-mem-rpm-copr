@@ -1,5 +1,5 @@
 Name:           nowledge-mem
-Version:        0.10.61
+Version:        0.10.62
 Release:        1%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
