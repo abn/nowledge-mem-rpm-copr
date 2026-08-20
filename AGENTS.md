@@ -8,7 +8,7 @@ Welcome! This repository packages **Nowledge Mem** into modular RPM packages (`n
    - `nowledge-mem` (Metapackage): Top-level convenience package requiring `nowledge-mem-cli`, `nowledge-mem-desktop`, and `nowledge-mem-server`.
    - `nowledge-mem-cli`: CLI binary (`nmem`), TUI client (`nmem-tui`), no GUI dependencies.
    - `nowledge-mem-desktop`: GUI launcher (`nowledge-mem`), browser helper (`browse-now`), desktop icons, `.desktop` files.
-   - `nowledge-mem-server`: Headless server daemon (`nmem-server`), `libpdfium.so`, `cloudflared`, web UI, systemd system & user units.
+   - `nowledge-mem-server`: Headless server daemon (`nmem-server`), `cloudflared`, web UI, systemd system & user units.
 
 2. **Python Helpers**:
    - [`update_version.py`](file:///update_version.py): Resolves latest version from `https://nowled.ge/download-mem-rpm`, updates spec file version/release, downloads upstream binary RPM to `build/x86_64-unknown-linux-gnu.rpm`.
