@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.66
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -224,6 +224,12 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Thu Aug 20 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.66-2
+- fix(spec): remove libpdfium and disable brp-strip hooks for paths with spaces
+  (arun.neelicattu@gmail.com)
+- docs: remove libpdfium reference from server package descriptions
+  (arun.neelicattu@gmail.com)
+
 * Thu Aug 20 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.66 (github-actions[bot]@users.noreply.github.com)
 
