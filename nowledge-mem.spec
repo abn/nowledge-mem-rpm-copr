@@ -10,6 +10,9 @@ Source0:        https://download-mem.nowledge.co/app/%{version}/x86_64-unknown-l
 ExclusiveArch:  x86_64
 AutoReqProv:    no
 %global debug_package %{nil}
+%global __brp_strip_comment_note %{nil}
+%global __brp_strip %{nil}
+%global __brp_strip_lto %{nil}
 
 BuildRequires:  cpio
 BuildRequires:  rpm
@@ -216,7 +219,6 @@ fi
 %dir "/usr/lib/Nowledge Mem/_up_"
 %dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server"
-"/usr/lib/Nowledge Mem/_up_/rust-backend/libpdfium.so"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/cloudflared"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/web-dist"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
