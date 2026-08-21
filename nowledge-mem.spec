@@ -219,6 +219,7 @@ fi
 %dir "/usr/lib/Nowledge Mem/_up_"
 %dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/libpdfium.so"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/cloudflared"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/web-dist"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
