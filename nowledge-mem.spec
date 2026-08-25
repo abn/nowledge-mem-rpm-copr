@@ -149,6 +149,9 @@ ExecStart=/usr/bin/nmem-server
 Restart=always
 RestartSec=5
 EnvironmentFile=-/etc/default/nowledge-mem
+StateDirectory=nowledge-mem
+CacheDirectory=nowledge-mem
+ConfigurationDirectory=nowledge-mem
 
 [Install]
 WantedBy=multi-user.target
@@ -166,6 +169,9 @@ Type=simple
 ExecStart=/usr/bin/nmem-server
 Restart=always
 RestartSec=5
+StateDirectory=nowledge-mem
+CacheDirectory=nowledge-mem
+ConfigurationDirectory=nowledge-mem
 
 [Install]
 WantedBy=default.target
