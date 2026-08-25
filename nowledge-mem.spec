@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.68
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -252,6 +252,11 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Tue Aug 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.68-3
+- feat(copr): support nosrc.rpm artifacts in dispatch
+  (arun.neelicattu@gmail.com)
+- feat(spec): exclude upstream binary from srpm (arun.neelicattu@gmail.com)
+
 * Tue Aug 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.68-2
 - feat(server): add sysusers and run as nowledge (arun.neelicattu@gmail.com)
 - feat(systemd): add directory directives to service
