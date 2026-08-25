@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.68
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -252,6 +252,10 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Tue Aug 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.68-5
+- fix(spec): declare BuildRequires curl for minimal chroots
+  (arun.neelicattu@gmail.com)
+
 * Tue Aug 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.68-4
 - fix(spec): use git archive as Source0 to produce valid lightweight SRPM
   (arun.neelicattu@gmail.com)
