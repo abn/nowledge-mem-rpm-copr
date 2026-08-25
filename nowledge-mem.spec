@@ -5,8 +5,7 @@ Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
 URL:            https://download-mem.nowledge.co
-Source0:        https://download-mem.nowledge.co/app/%{version}/x86_64-unknown-linux-gnu.rpm
-NoSource:       0
+Source0:        %{name}-%{version}.tar.gz
 
 ExclusiveArch:  x86_64
 AutoReqProv:    no
