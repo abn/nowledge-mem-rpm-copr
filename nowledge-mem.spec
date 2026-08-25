@@ -225,6 +225,9 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Tue Aug 25 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.68 (github-actions[bot]@users.noreply.github.com)
+
 * Fri Aug 21 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.67-2
 - fix(spec): add libpdfium back to server files section
   (arun.neelicattu@gmail.com)
