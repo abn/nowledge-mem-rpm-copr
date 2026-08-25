@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.68
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -251,6 +251,14 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Tue Aug 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.68-2
+- feat(server): add sysusers and run as nowledge (arun.neelicattu@gmail.com)
+- feat(systemd): add directory directives to service
+  (arun.neelicattu@gmail.com)
+- feat(server): require libgomp for openmp embeddings
+  (arun.neelicattu@gmail.com)
+- feat(cli): add /usr/bin/nmem-tui symlink (arun.neelicattu@gmail.com)
+
 * Tue Aug 25 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.68 (github-actions[bot]@users.noreply.github.com)
 
