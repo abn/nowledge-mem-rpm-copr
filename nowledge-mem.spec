@@ -17,6 +17,7 @@ AutoReqProv:    no
 BuildRequires:  cpio
 BuildRequires:  rpm
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  curl
 %{!?_sysusersdir: %global _sysusersdir %{_prefix}/lib/sysusers.d}
 
 Provides:       nmem = %{version}-%{release}
