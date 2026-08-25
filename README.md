@@ -60,7 +60,7 @@ The build produces 4 modular RPM packages:
    - **Purpose**: GUI client and browser integration helper. Connects to a local or remote Nowledge Mem server.
 
 4. **`nowledge-mem-server`** (Headless Server Daemon & Systemd Units):
-   - **Dependencies**: Standard system libraries (no GTK/desktop dependencies)
+   - **Dependencies**: `libgomp` (OpenMP runtime for embeddings), standard system libraries (no GTK/desktop dependencies)
    - **Provides**: `nmem-server`
    - **Contents**: `/usr/bin/nmem-server`, `libpdfium.so`, `cloudflared`, embedded Web UI (`web-dist`), and systemd unit files.
    - **Purpose**: Headless server daemon for deployment on servers, VMs, or remote hosts.

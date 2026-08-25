@@ -69,6 +69,11 @@ Connects to a local or remote Nowledge Mem server.
 Summary:        Nowledge Mem backend server daemon
 AutoReqProv:    no
 Provides:       nmem-server = %{version}-%{release}
+%if 0%{?suse_version}
+Requires:       (libgomp1 or libgomp)
+%else
+Requires:       libgomp
+%endif
 %{?systemd_requires}
 
 %description server
