@@ -62,7 +62,7 @@ The build produces 4 modular RPM packages:
 4. **`nowledge-mem-server`** (Headless Server Daemon & Systemd Units):
    - **Dependencies**: `libgomp` (OpenMP runtime for embeddings), standard system libraries (no GTK/desktop dependencies)
    - **Provides**: `nmem-server`
-   - **Contents**: `/usr/bin/nmem-server`, `libpdfium.so`, `cloudflared`, embedded Web UI (`web-dist`), and systemd unit files.
+   - **Contents**: `/usr/bin/nmem-server`, `libpdfium.so`, `cloudflared`, embedded Web UI (`web-dist`), sysusers configuration, and systemd unit files.
    - **Purpose**: Headless server daemon for deployment on servers, VMs, or remote hosts.
 
 ## Systemd Service Management

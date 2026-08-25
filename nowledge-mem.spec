@@ -17,6 +17,7 @@ AutoReqProv:    no
 BuildRequires:  cpio
 BuildRequires:  rpm
 BuildRequires:  systemd-rpm-macros
+%{!?_sysusersdir: %global _sysusersdir %{_prefix}/lib/sysusers.d}
 
 Provides:       nmem = %{version}-%{release}
 
@@ -137,6 +138,12 @@ fi
 # Remove redundant /usr/share/nowledge-mem script folder if present
 rm -rf %{buildroot}/usr/share/nowledge-mem
 
+# Install sysusers configuration
+mkdir -p %{buildroot}%{_sysusersdir}
+cat << 'EOF' > %{buildroot}%{_sysusersdir}/nowledge-mem.conf
+u nowledge - "Nowledge Mem daemon" /var/lib/nowledge-mem /usr/sbin/nologin
+EOF
+
 # Install systemd System Service Unit
 cat << 'EOF' > %{buildroot}%{_unitdir}/nowledge-mem.service
 [Unit]
@@ -145,6 +152,8 @@ After=network.target
 
 [Service]
 Type=simple
+User=nowledge
+Group=nowledge
 ExecStart=/usr/bin/nmem-server
 Restart=always
 RestartSec=5
@@ -227,6 +236,7 @@ fi
 
 %files server
 /usr/bin/nmem-server
+%{_sysusersdir}/nowledge-mem.conf
 %{_unitdir}/nowledge-mem.service
 %{_unitdir}/nmem-server.service
 %{_userunitdir}/nowledge-mem.service
