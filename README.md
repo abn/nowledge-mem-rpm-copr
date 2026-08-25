@@ -48,8 +48,8 @@ The build produces 4 modular RPM packages:
 
 2. **`nowledge-mem-cli`** (Command Line & TUI Tools):
    - **Dependencies**: Standard system libraries (no GTK/GUI dependencies)
-   - **Provides**: `nmem-cli`
-   - **Contents**: `/usr/bin/nmem`, `nmem-tui`
+   - **Provides**: `nmem-cli`, `nmem-tui`
+   - **Contents**: `/usr/bin/nmem`, `/usr/bin/nmem-tui`
    - **Purpose**: Command-line tool and terminal UI client for managing memories, search, and configuration.
 
 3. **`nowledge-mem-desktop`** (Desktop GUI Client):

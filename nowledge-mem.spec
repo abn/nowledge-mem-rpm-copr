@@ -32,6 +32,7 @@ CLI tools (nowledge-mem-cli), and local backend server (nowledge-mem-server).
 Summary:        Nowledge Mem CLI and TUI tools
 AutoReqProv:    no
 Provides:       nmem-cli = %{version}-%{release}
+Provides:       nmem-tui = %{version}-%{release}
 
 %description cli
 Command-line interface (nmem) and Terminal UI (nmem-tui) for Nowledge Mem.
@@ -118,6 +119,9 @@ cp -a usr/share/icons/* %{buildroot}/usr/share/icons/ 2>/dev/null || true
 if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/nmem" ]; then
     ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem" %{buildroot}/usr/bin/nmem
 fi
+if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-tui" ]; then
+    ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-tui" %{buildroot}/usr/bin/nmem-tui
+fi
 if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/browse-now" ]; then
     ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/browse-now" %{buildroot}/usr/bin/browse-now
 fi
@@ -193,6 +197,7 @@ fi
 
 %files cli
 /usr/bin/nmem
+/usr/bin/nmem-tui
 %dir "/usr/lib/Nowledge Mem"
 %dir "/usr/lib/Nowledge Mem/_up_"
 %dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
