@@ -6,6 +6,7 @@
 build/
 *.rpm
 *.src.rpm
+*.nosrc.rpm
 
 # Python virtual environment
 .venv/

@@ -26,8 +26,9 @@ def check_copr_config():
 
 
 def find_latest_srpm(build_dir):
-    pattern = os.path.join(build_dir, "*.src.rpm")
-    srpms = glob.glob(pattern)
+    srpms = glob.glob(os.path.join(build_dir, "*.src.rpm")) + glob.glob(
+        os.path.join(build_dir, "*.nosrc.rpm")
+    )
     if not srpms:
         return None
     # Sort by modification time, latest first
