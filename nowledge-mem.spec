@@ -252,6 +252,9 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Wed Aug 26 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.70 (github-actions[bot]@users.noreply.github.com)
+
 * Tue Aug 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.68-5
 - fix(spec): declare BuildRequires curl for minimal chroots
   (arun.neelicattu@gmail.com)
