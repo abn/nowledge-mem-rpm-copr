@@ -15,3 +15,6 @@ __pycache__/
 # Local downloaded sources
 nowledge-mem-*.rpm
 nowledge-mem-upstream.rpm
+
+# Experimental container context
+nowledge-mem-server-container/

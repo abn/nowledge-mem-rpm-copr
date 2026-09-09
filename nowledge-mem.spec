@@ -246,6 +246,8 @@ fi
 %dir "/usr/lib/Nowledge Mem/_up_"
 %dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-skein-operator"
+"/usr/lib/Nowledge Mem/_up_/rust-backend/skein-build-manifest.json"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/libpdfium.so"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/cloudflared"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/web-dist"
