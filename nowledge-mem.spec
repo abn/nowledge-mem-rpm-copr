@@ -188,6 +188,17 @@ WantedBy=default.target
 EOF
 ln -sf nowledge-mem.service %{buildroot}%{_userunitdir}/nmem-server.service
 
+# Dynamically package optional/experimental server operator binaries and manifests
+touch %{_builddir}/server-optional.files
+touch server-optional.files
+for filepath in "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/"*-operator "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/"*-manifest.json; do
+    if [ -e "$filepath" ]; then
+        relpath="${filepath#%{buildroot}}"
+        echo "\"$relpath\"" >> %{_builddir}/server-optional.files
+        echo "\"$relpath\"" >> server-optional.files
+    fi
+done
+
 %post desktop
 if command -v gtk-update-icon-cache >/dev/null 2>&1; then
     gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor 2>/dev/null || true
@@ -235,7 +246,7 @@ fi
 "/usr/share/applications/Nowledge Mem.desktop"
 /usr/share/icons/hicolor/*/*/*
 
-%files server
+%files server -f server-optional.files
 /usr/bin/nmem-server
 %{_sysusersdir}/nowledge-mem.conf
 %{_unitdir}/nowledge-mem.service
@@ -246,8 +257,6 @@ fi
 %dir "/usr/lib/Nowledge Mem/_up_"
 %dir "/usr/lib/Nowledge Mem/_up_/rust-backend"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-server"
-"/usr/lib/Nowledge Mem/_up_/rust-backend/nmem-skein-operator"
-"/usr/lib/Nowledge Mem/_up_/rust-backend/skein-build-manifest.json"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/libpdfium.so"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/cloudflared"
 "/usr/lib/Nowledge Mem/_up_/rust-backend/web-dist"
