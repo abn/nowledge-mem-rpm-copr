@@ -263,6 +263,9 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Tue Sep 22 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.85 (github-actions[bot]@users.noreply.github.com)
+
 * Tue Sep 22 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.84-2
 - fix(server): dynamically package optional experimental server operators
   (arun.neelicattu@gmail.com)
