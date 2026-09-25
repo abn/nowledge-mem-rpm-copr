@@ -264,6 +264,9 @@ fi
 
 %changelog
 * Fri Sep 25 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.88 (github-actions[bot]@users.noreply.github.com)
+
+* Fri Sep 25 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.87 (github-actions[bot]@users.noreply.github.com)
 
 * Thu Sep 24 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
