@@ -188,14 +188,14 @@ WantedBy=default.target
 EOF
 ln -sf nowledge-mem.service %{buildroot}%{_userunitdir}/nmem-server.service
 
-# Dynamically package optional/experimental server operator binaries and manifests
-touch %{_builddir}/server-optional.files
-touch server-optional.files
+# Dynamically package server files including optional/experimental server operator binaries and manifests
+echo "/usr/bin/nmem-server" > %{_builddir}/server.files
+echo "/usr/bin/nmem-server" > server.files
 for filepath in "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/"*-operator "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/"*-manifest.json; do
     if [ -e "$filepath" ]; then
         relpath="${filepath#%{buildroot}}"
-        echo "\"$relpath\"" >> %{_builddir}/server-optional.files
-        echo "\"$relpath\"" >> server-optional.files
+        echo "\"$relpath\"" >> %{_builddir}/server.files
+        echo "\"$relpath\"" >> server.files
     fi
 done
 
@@ -246,8 +246,7 @@ fi
 "/usr/share/applications/Nowledge Mem.desktop"
 /usr/share/icons/hicolor/*/*/*
 
-%files server -f server-optional.files
-/usr/bin/nmem-server
+%files server -f server.files
 %{_sysusersdir}/nowledge-mem.conf
 %{_unitdir}/nowledge-mem.service
 %{_unitdir}/nmem-server.service
