@@ -1,6 +1,6 @@
 Name:           nowledge-mem
 Version:        0.10.99
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Personal memory and context management system (Metapackage)
 
 License:        Proprietary
@@ -262,6 +262,10 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Sun Oct 11 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.99-2
+- fix(server): avoid empty server files manifest when operators are missing
+  (arun.neelicattu@gmail.com)
+
 * Sat Oct 10 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.99 (github-actions[bot]@users.noreply.github.com)
 
