@@ -262,6 +262,10 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Mon Oct 12 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.100 (github-
+  actions[bot]@users.noreply.github.com)
+
 * Sun Oct 11 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.99-2
 - fix(server): avoid empty server files manifest when operators are missing
   (arun.neelicattu@gmail.com)
