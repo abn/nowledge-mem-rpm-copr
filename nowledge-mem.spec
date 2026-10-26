@@ -263,6 +263,10 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Mon Oct 26 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.108 (github-
+  actions[bot]@users.noreply.github.com)
+
 * Sun Oct 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.107-1
 - chore: bump version to 0.10.107 (arun.neelicattu@gmail.com)
 - Fix: add nmem-legacy-graph-reader to %%files server
