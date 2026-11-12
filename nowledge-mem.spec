@@ -263,6 +263,10 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Thu Nov 12 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.118 (github-
+  actions[bot]@users.noreply.github.com)
+
 * Tue Nov 10 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 - chore: bump version to 0.10.117 (github-
   actions[bot]@users.noreply.github.com)
