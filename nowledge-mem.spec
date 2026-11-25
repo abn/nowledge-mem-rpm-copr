@@ -122,6 +122,31 @@ cp -a "usr/lib/Nowledge Mem" %{buildroot}/usr/lib/
 cp -a usr/share/applications/* %{buildroot}/usr/share/applications/ 2>/dev/null || true
 cp -a usr/share/icons/* %{buildroot}/usr/share/icons/ 2>/dev/null || true
 
+# Wrap the Tauri desktop binary so the WebKitGTK DMA-BUF workaround applies
+# transparently on every Fedora host (.desktop launcher, terminal, URI handler).
+# The wrapper only sets the variable as a default: an explicit non-empty value wins.
+if [ -f "%{buildroot}/usr/bin/nowledge-mem" ]; then
+    mkdir -p "%{buildroot}/usr/libexec"
+    mv "%{buildroot}/usr/bin/nowledge-mem" "%{buildroot}/usr/libexec/nowledge-mem"
+    cat << 'EOF' > "%{buildroot}/usr/bin/nowledge-mem"
+#!/bin/sh
+# Transparent launcher for the Nowledge Mem desktop app.
+# Sets WEBKIT_DISABLE_DMABUF_RENDERER=1 as a default only, so the WebKitGTK
+# DMA-BUF renderer does not silently fail-and-fall-back when it misbehaves
+# (black screen + software-rendering CPU spike). An explicit non-empty value
+# is honored (e.g. =0 to opt back into DMA-BUF).
+: "${WEBKIT_DISABLE_DMABUF_RENDERER:=1}"
+export WEBKIT_DISABLE_DMABUF_RENDERER
+exec /usr/libexec/nowledge-mem "$@"
+EOF
+    chmod 755 "%{buildroot}/usr/bin/nowledge-mem"
+else
+    # A missing desktop binary makes the desktop package useless; fail the
+    # build rather than ship a broken .desktop launcher and a missing binary.
+    echo "nowledge-mem.spec: upstream desktop binary missing at %{buildroot}/usr/bin/nowledge-mem" >&2
+    exit 1
+fi
+
 # Symlink binaries into /usr/bin
 if [ -f "%{buildroot}/usr/lib/Nowledge Mem/_up_/rust-backend/nmem" ]; then
     ln -sf "/usr/lib/Nowledge Mem/_up_/rust-backend/nmem" %{buildroot}/usr/bin/nmem
@@ -238,6 +263,7 @@ fi
 
 %files desktop
 /usr/bin/nowledge-mem
+/usr/libexec/nowledge-mem
 /usr/bin/browse-now
 %dir "/usr/lib/Nowledge Mem"
 %dir "/usr/lib/Nowledge Mem/_up_"

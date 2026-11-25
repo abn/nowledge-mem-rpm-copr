@@ -56,8 +56,9 @@ The build produces 4 modular RPM packages:
    - **Dependencies**: `nowledge-mem-cli`, `gtk3`, `webkit2gtk`, `libayatana-appindicator3`, `libsoup`
    - **Provides**: `browse-now`, `nmem-desktop`
    - **Suggests**: `nowledge-mem-server`
-   - **Contents**: `/usr/bin/nowledge-mem`, `/usr/bin/browse-now`, `.desktop` launcher, and high-resolution application icons.
+   - **Contents**: `/usr/bin/nowledge-mem` (thin wrapper), `/usr/libexec/nowledge-mem` (real Tauri binary), `/usr/bin/browse-now`, `.desktop` launcher, and high-resolution application icons.
    - **Purpose**: GUI client and browser integration helper. Connects to a local or remote Nowledge Mem server.
+   - **DMA-BUF workaround**: `/usr/bin/nowledge-mem` is a wrapper that exports `WEBKIT_DISABLE_DMABUF_RENDERER=1` as a default only (an explicit non-empty value wins), so the WebKitGTK DMA-BUF renderer does not silently fail-and-fall-back when it misbehaves (black screen + software-rendering CPU spike). To opt back into DMA-BUF, export `WEBKIT_DISABLE_DMABUF_RENDERER=0`.
 
 4. **`nowledge-mem-server`** (Headless Server Daemon & Systemd Units):
    - **Dependencies**: `libgomp` (OpenMP runtime for embeddings), standard system libraries (no GTK/desktop dependencies)
