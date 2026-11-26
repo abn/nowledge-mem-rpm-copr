@@ -289,6 +289,10 @@ fi
 "/usr/lib/Nowledge Mem/_up_/rust-backend/.gitkeep"
 
 %changelog
+* Thu Nov 26 2026 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+- chore: bump version to 0.10.124 (github-
+  actions[bot]@users.noreply.github.com)
+
 * Wed Nov 25 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 0.10.123-2
 - fix: transparent DMA-BUF wrapper for desktop app (arun.neelicattu@gmail.com)
 
